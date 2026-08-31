@@ -14,9 +14,9 @@ namespace Wallet.Net.Tests
         {
             ConfigurationBuilder configBuilder = new ConfigurationBuilder();
             Configuration = configBuilder
-                .SetBasePath(Directory.GetCurrentDirectory())
+                .SetBasePath(AppContext.BaseDirectory)
                 .AddJsonFile("appsettings.json", false)
-                .AddJsonFile("appsettings.Testing.json", true)
+                .AddJsonFile("appsettings.Testing.json", false)
                 .Build();
         }
 

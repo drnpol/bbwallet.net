@@ -1,13 +1,13 @@
 using Xunit.Abstractions;
 
-namespace Wallet.Net.Tests.Api
+namespace Wallet.Net.Tests.Api.Records
 {
     [Collection("WalletAPITestCollection")]
-    public class AccountTests
+    public class RecordTests
     {
         protected readonly WalletTestFixture _fixture;
         protected readonly ITestOutputHelper _outputHelper;
-        public AccountTests(
+        public RecordTests(
             WalletTestFixture fixture,
             ITestOutputHelper outputHelper
         )
