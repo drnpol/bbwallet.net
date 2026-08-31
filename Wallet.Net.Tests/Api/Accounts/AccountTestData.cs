@@ -1,7 +1,7 @@
 using Wallet.Net.Models.Accounts;
 using Wallet.Net.Tests.Api.Accounts;
 
-namespace Wallet.Net.Tests
+namespace Wallet.Net.Tests.Api.Accounts
 {
     public partial class AccountTestData
     {
