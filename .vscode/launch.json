@@ -1,0 +1,15 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Budget Baker Wallet Tests",
+            "type": "coreclr",
+            "request": "launch",
+            "program": "${workspaceFolder}/Wallet.Net.Tests/bin/Debug/net10.0/Wallet.Net.Tests.dll",
+            "cwd": "${workspaceFolder}/Wallet.Net.Tests",
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Testing"
+            }
+        }
+    ]
+}
