@@ -1,1 +1,4 @@
-<Solution />
+<Solution>
+  <Project Path="Wallet.Net.Tests/Wallet.Net.Tests.csproj" />
+  <Project Path="Wallet.Net/Wallet.Net.csproj" />
+</Solution>

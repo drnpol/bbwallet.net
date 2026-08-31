@@ -6,22 +6,25 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-	<ItemGroup>
-
-	    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="10.0.11" />
-	    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="10.0.11" />
-	    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.11" />
-	    <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.11" />
-	    <PackageReference Include="RestSharp" Version="114.0.0" />
-	    <PackageReference Include="RestSharp.Serializers.NewtonsoftJson" Version="114.0.0" />
-    </ItemGroup>
-
   <ItemGroup>
     <Folder Include="Exceptions\" />
     <Folder Include="Converters\" />
     <Folder Include="Models\Accounts\" />
+    <Folder Include="Models\Budget\" />
     <Folder Include="Models\Records\" />
+	<Folder Include="Models\Budget\" />
+	<Folder Include="Models\Categories\" />
+	<Folder Include="Models\Labels\" />
     <Folder Include="OpenApi\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="10.0.11" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="10.0.11" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.11" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.11" />
+    <PackageReference Include="RestSharp" Version="114.0.0" />
+    <PackageReference Include="RestSharp.Serializers.NewtonsoftJson" Version="114.0.0" />
   </ItemGroup>
 
 </Project>
