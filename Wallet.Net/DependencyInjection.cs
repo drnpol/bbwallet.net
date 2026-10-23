@@ -15,7 +15,7 @@ namespace Wallet.Net;
 public static class DependencyInjection
 {
     /// <summary>
-    /// Adds the Wallet API read client using configuration from the default Wallet section.
+    /// Adds the Wallet API client using configuration from the default Wallet section.
     /// </summary>
     public static IServiceCollection AddWalletClient(this IServiceCollection services, IConfiguration configuration)
     {
@@ -25,8 +25,9 @@ public static class DependencyInjection
         services
             .AddOptions<WalletClientOptions>()
             .Bind(configuration.GetRequiredSection("BudgetBakers").GetRequiredSection("Wallet"))
-            .Validate(options => options.BaseUrl.IsAbsoluteUri, "Wallet base URL must be absolute.")
-            .Validate(options => !string.IsNullOrWhiteSpace(options.AccessToken), "Wallet access token is required.");
+            .Validate(options => options.BaseUrl is { IsAbsoluteUri: true }, "Wallet base URL must be absolute.")
+            .Validate(options => !string.IsNullOrWhiteSpace(options.AccessToken), "Wallet access token is required.")
+            .Validate(options => options.DefaultPageSize is >= 1 and <= 200, "Default page size must be between 1 and 200.");
 
         return services.AddWalletClient();
     }

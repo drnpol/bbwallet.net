@@ -7,6 +7,8 @@ namespace Wallet.Net.Exceptions;
 /// </summary>
 public class WalletApiException : Exception
 {
+    /// <summary>HTTP response metadata, including rate-limit and retry information.</summary>
+    public Wallet.Net.Models.WalletResponseMetadata Metadata { get; internal set; } = new();
     public WalletApiException(string message, HttpStatusCode? statusCode = null, string? responseContent = null, Exception? innerException = null)
         : base(message, innerException)
     {

@@ -3,8 +3,10 @@ namespace Wallet.Net.Models;
 /// <summary>
 /// Normalized page returned by read methods.
 /// </summary>
-public sealed record WalletPage<T>
+public sealed record WalletPage<T> : WalletResponse
 {
+    /// <summary>Date filters actually applied by record reads, including the server's default window. Empty for other collections.</summary>
+    public IReadOnlyList<string> AppliedRecordDateFilters { get; init; } = [];
     /// <summary>
     /// Page items.
     /// </summary>

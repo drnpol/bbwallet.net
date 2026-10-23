@@ -4,10 +4,20 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Wallet.Net\Wallet.Net.csproj" />
+  </ItemGroup>
+
+  <!-- Live account tests are opt-in; ordinary builds and test runs need no credentials. -->
+  <ItemGroup Condition="'$(RunWalletIntegrationTests)' != 'true'">
+    <Compile Remove="Api\**\*.cs;WalletTestFixture.cs;WalletTestCollection.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\Wallet.Net\OpenApi\budgetbakers-wallet-api-v2.1.0.json" Link="Fixtures\openapi.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <ItemGroup>

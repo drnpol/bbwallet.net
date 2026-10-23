@@ -13,26 +13,32 @@ namespace Wallet.Net
 {
     public partial class WalletClient : IWalletClient
     {
-        private WalletRequestExecutor _executor;
+        private readonly WalletRequestExecutor _executor;
 
         public WalletClient(WalletRequestExecutor executor)
         {
+            ArgumentNullException.ThrowIfNull(executor);
             _executor = executor;
         }
-        public Task<IReadOnlyDictionary<string, ReferencesResponse>> GetReferencesAsync(
+        public async Task<IReadOnlyDictionary<string, ReferencesResponse>> GetReferencesAsync(
         ReferenceType type,
         IReadOnlyList<string> ids,
         CancellationToken cancellationToken = default)
+            => (await GetReferencesWithMetadataAsync(type, ids, cancellationToken).ConfigureAwait(false)).Data;
+
+        /// <inheritdoc />
+        public Task<WalletResult<IReadOnlyDictionary<string, ReferencesResponse>>> GetReferencesWithMetadataAsync(
+            ReferenceType type, IReadOnlyList<string> ids, CancellationToken cancellationToken = default)
         {
             ArgumentNullException.ThrowIfNull(ids);
 
-            if (ids.Count == 0)
+            if (ids.Count is < 1 or > 20 || ids.Any(string.IsNullOrWhiteSpace))
             {
-                throw new ArgumentException("At least one id is required.", nameof(ids));
+                throw new ArgumentException("Supply between 1 and 20 nonblank IDs.", nameof(ids));
             }
 
             var query = new { id = string.Join(",", ids) };
-            return _executor.GetAsync<IReadOnlyDictionary<string, ReferencesResponse>>($"/v1/api/{ToReferencePath(type)}/references", query, cancellationToken);
+            return _executor.SendAsync<IReadOnlyDictionary<string, ReferencesResponse>>($"/v1/api/{ToReferencePath(type)}/references", RestSharp.Method.Get, query: query, cancellationToken: cancellationToken);
         }
 
         private static WalletPage<T> ToPage<T>(PaginatedResponse response, IReadOnlyList<T> items)
@@ -53,6 +59,8 @@ namespace Wallet.Net
 
             return new WalletPage<T>
             {
+                Metadata = response.Metadata,
+                AppliedRecordDateFilters = response is RecordsResponse records ? records.AppliedRecordDateFilters : [],
                 Items = items,
                 Limit = response.Limit,
                 NextOffset = response.NextOffset,

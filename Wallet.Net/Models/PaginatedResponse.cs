@@ -3,7 +3,7 @@ namespace Wallet.Net.Models;
 /// <summary>
 /// Pagination metadata returned by list endpoints.
 /// </summary>
-public abstract record PaginatedResponse
+public abstract record PaginatedResponse : WalletResponse
 {
     /// <summary>
     /// Number of items per page.
